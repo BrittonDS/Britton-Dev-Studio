@@ -387,8 +387,10 @@ service:service,
 message:document.getElementById('message').value
 }).then(()=>alert('Request sent!'));
 }
-
-document.getElementById("sendBtn").addEventListener("click", sendMail);
+  
+window.addEventListener("load", function(){
+  document.getElementById("sendBtn").addEventListener("click", sendMail);
+});
   
 </script>
 
