@@ -118,6 +118,118 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 </div>
 </section>
 
+<!-- ABOUT US (HIGH-END) -->
+<section id="about">
+  <h2 data-aos="fade-up">About Us</h2>
+  <div class="about-wrap">
+
+    <div class="about-card main" data-aos="fade-right">
+      <h3>Who We Are</h3>
+      <p>
+        Britton Dev Studio is a forward-thinking digital agency focused on building high-performance web experiences and scalable software systems. We combine modern design, cutting-edge technologies, and strategic thinking to deliver products that not only look exceptional — but perform at the highest level.
+      </p>
+      <p>
+        Our team specializes in full-stack development, UI/UX design, and advanced integrations, helping businesses transform ideas into powerful digital solutions.
+      </p>
+    </div>
+
+    <div class="about-card stats" data-aos="fade-up">
+      <div class="stat">
+        <h4>100+</h4>
+        <p>Projects Delivered</p>
+      </div>
+      <div class="stat">
+        <h4>5+</h4>
+        <p>Years Experience</p>
+      </div>
+      <div class="stat">
+        <h4>98%</h4>
+        <p>Client Satisfaction</p>
+      </div>
+    </div>
+
+    <div class="about-card vision" data-aos="fade-left">
+      <h3>Our Vision</h3>
+      <p>
+        We aim to empower businesses through technology — creating digital experiences that drive growth, engagement, and long-term success. Every project we take on is built with scalability, performance, and innovation at its core.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.about-wrap{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:30px;
+  margin-top:40px;
+}
+
+.about-card{
+  position:relative;
+  padding:35px;
+  border-radius:20px;
+  background:rgba(30,41,59,0.6);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.08);
+  overflow:hidden;
+  transition:.4s;
+}
+
+.about-card::before{
+  content:"";
+  position:absolute;
+  width:200%;
+  height:200%;
+  top:-50%;
+  left:-50%;
+  background:radial-gradient(circle,rgba(139,92,246,0.15),transparent);
+  transform:rotate(20deg);
+}
+
+.about-card:hover{
+  transform:translateY(-12px) scale(1.02);
+  box-shadow:0 20px 60px rgba(139,92,246,0.25);
+}
+
+.about-card h3{
+  font-family:'Space Grotesk';
+  margin-bottom:15px;
+}
+
+.about-card p{
+  color:#cbd5f5;
+  line-height:1.6;
+}
+
+/* STATS */
+.about-card.stats{
+  display:flex;
+  justify-content:space-around;
+  text-align:center;
+}
+
+.stat h4{
+  font-size:2rem;
+  color:#a78bfa;
+}
+
+.stat p{
+  font-size:0.9rem;
+}
+
+/* subtle glow animation */
+.about-card.main{
+  animation:glowPulse 4s infinite alternate;
+}
+
+@keyframes glowPulse{
+  0%{box-shadow:0 0 20px rgba(139,92,246,0.1)}
+  100%{box-shadow:0 0 40px rgba(139,92,246,0.25)}
+}
+</style>
+
 <!-- MODAL -->
 <div class="modal" id="modal">
 <div class="modal-content">
