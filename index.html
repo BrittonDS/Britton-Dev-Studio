@@ -11,25 +11,23 @@
 <style>
 
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Inter',sans-serif;background:#0e1a2b;color:white;overflow-x:hidden;}
+body{font-family:'Inter',sans-serif;background:#0e1a2b;color:white;}
 
 /* NAV */
 nav{
 display:flex;
 justify-content:space-between;
 padding:20px 8%;
-position:fixed;
+position:absolute;
 width:100%;
-z-index:1000;
-background:rgba(10,20,40,0.7);
-backdrop-filter:blur(10px);
+z-index:10;
 }
 
 .btn{
-background:linear-gradient(135deg,#6c63ff,#4facfe);
+background:#6c63ff;
+padding:10px 22px;
+border-radius:6px;
 border:none;
-padding:12px 24px;
-border-radius:30px;
 color:white;
 cursor:pointer;
 }
@@ -37,13 +35,25 @@ cursor:pointer;
 /* HERO */
 .hero{
 height:100vh;
+background:url('https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg') center/cover;
+position:relative;
 display:flex;
 align-items:center;
 padding:0 10%;
-background:linear-gradient(135deg,#0e1a2b,#1c2f5a);
+}
+
+.hero::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(10,20,40,0.7);
+top:0;
+left:0;
 }
 
 .hero-content{
+position:relative;
 max-width:600px;
 }
 
@@ -54,61 +64,72 @@ line-height:1.1;
 
 .hero p{
 margin:20px 0;
-color:#cbd5e1;
+color:#d1d5db;
 }
 
-/* PANEL */
-.panel{
+/* FLOATING BOX */
+.floating{
 background:#162544;
+padding:40px;
 border-radius:20px;
-padding:30px;
-margin-top:-80px;
 width:80%;
-margin-left:auto;
-margin-right:auto;
+margin:-100px auto 0;
 display:flex;
 justify-content:space-between;
+box-shadow:0 20px 60px rgba(0,0,0,0.4);
 }
 
-/* SERVICES GRID */
-.services{
+/* SECTION DARK */
+.section{
 padding:120px 10%;
-background:#111f3d;
 }
 
-.grid{
+/* TWO COLUMN FEATURE */
+.features{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:30px;
+grid-template-columns:1fr 1fr;
+gap:60px;
+align-items:center;
 }
 
-.card{
+.feature-card{
 background:#1c2f5a;
 padding:30px;
 border-radius:20px;
-transition:0.3s;
 }
 
-.card:hover{
-transform:translateY(-10px);
-box-shadow:0 10px 40px rgba(0,0,0,0.4);
+/* LIST SIDE */
+.list p{
+margin:10px 0;
+color:#cbd5e1;
 }
 
-/* GRADIENT SECTION */
+/* GRADIENT BAND */
 .gradient{
 background:linear-gradient(135deg,#6c63ff,#4facfe);
 padding:120px 10%;
 text-align:center;
 }
 
-/* SPLIT */
-.split{
+/* SHOWCASE */
+.showcase{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:60px;
+gap:40px;
 padding:120px 10%;
-background:#f4f4f4;
+background:#f3f4f6;
 color:#111;
+}
+
+.showcase img{
+width:100%;
+border-radius:12px;
+}
+
+.show-box{
+background:white;
+padding:30px;
+border-radius:12px;
 }
 
 /* TESTIMONIAL */
@@ -126,51 +147,6 @@ text-align:center;
 background:#0e1a2b;
 }
 
-.socials svg{
-width:24px;
-fill:white;
-margin:0 10px;
-cursor:pointer;
-}
-
-/* MODAL */
-.modal{
-display:none;
-position:fixed;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.8);
-justify-content:center;
-align-items:center;
-}
-
-.modal-content{
-background:white;
-color:black;
-padding:30px;
-border-radius:20px;
-width:90%;
-max-width:400px;
-}
-
-.modal input, .modal textarea{
-width:100%;
-margin-bottom:10px;
-padding:10px;
-}
-
-/* ANIMATION */
-.reveal{
-opacity:0;
-transform:translateY(60px);
-transition:1s;
-}
-
-.reveal.active{
-opacity:1;
-transform:translateY(0);
-}
-
 </style>
 </head>
 
@@ -178,127 +154,87 @@ transform:translateY(0);
 
 <nav>
 <h2>Britton Dev Studio</h2>
-<button class="btn" onclick="openModal()">Get Quote</button>
+<button class="btn" onclick="openModal()">Contact</button>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
 <div class="hero-content">
-<h1>Digital Products That Drive Real Growth</h1>
-<p>We design and develop modern websites that help businesses scale, convert, and stand out.</p>
-<button class="btn" onclick="openModal()">Start Project</button>
+<h1>DIGITAL PRODUCTS<br>TO EMPOWER BUSINESSES</h1>
+<p>We design and develop high-performance websites that help brands grow.</p>
+<button class="btn" onclick="openModal()">Get In Touch</button>
 </div>
 </section>
 
-<!-- PANEL -->
-<div class="panel reveal">
+<!-- FLOATING -->
+<div class="floating">
 <div>
-<h3>Mobile Development</h3>
-<p>High performance apps</p>
-</div>
-<div>
-<h3>Web Design</h3>
-<p>Modern UI systems</p>
-</div>
-<div>
-<h3>SEO Growth</h3>
-<p>Rank and convert</p>
-</div>
-</div>
-
-<!-- SERVICES -->
-<section class="services reveal">
-<h2>Services We Excel At</h2>
-
-<div class="grid">
-
-<div class="card">
 <h3>Web Development</h3>
-<p>Custom high-performance builds.</p>
+<p>Scalable builds</p>
+</div>
+<div>
+<h3>UI Design</h3>
+<p>Modern interfaces</p>
+</div>
+<div>
+<h3>SEO</h3>
+<p>Grow traffic</p>
+</div>
 </div>
 
-<div class="card">
-<h3>UI/UX Design</h3>
-<p>Modern user-focused interfaces.</p>
+<!-- FEATURES -->
+<section class="section">
+<div class="features">
+
+<div class="feature-card">
+<h3>Mobile Development</h3>
+<p>High-end solutions designed for performance and scalability.</p>
+<button class="btn">Read More</button>
 </div>
 
-<div class="card">
-<h3>SEO Optimization</h3>
-<p>Rank higher and grow traffic.</p>
+<div class="list">
+<h2>Services We Excel At</h2>
+<p>• Mobile Development</p>
+<p>• Product Design</p>
+<p>• UI/UX Design</p>
+<p>• Web Development</p>
 </div>
 
 </div>
 </section>
 
 <!-- GRADIENT -->
-<section class="gradient reveal">
-<h2>Trusted By Growing Brands</h2>
-<p>We build digital experiences that businesses rely on.</p>
+<section class="gradient">
+<h2>We Are Trusted By Growing Businesses</h2>
+<p>Delivering high-performance digital solutions worldwide.</p>
 <button class="btn">View Work</button>
 </section>
 
-<!-- SPLIT -->
-<section class="split reveal">
-<img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg">
+<!-- SHOWCASE -->
+<section class="showcase">
+<img src="https://images.pexels.com/photos/3182763/pexels-photo-3182763.jpeg">
 
-<div>
-<h2>Built for modern businesses</h2>
-<p>We combine design, development and strategy into one seamless process.</p>
+<div class="show-box">
+<h3>Mobile Development</h3>
+<p>We build scalable systems that support business growth.</p>
 </div>
 </section>
 
 <!-- TESTIMONIAL -->
-<section class="testimonial reveal">
-<h2>What Clients Say</h2>
-<p>"Absolutely incredible work — highly recommend."</p>
+<section class="testimonial">
+<h2>Hear From Our Clients</h2>
+<p>"Absolutely incredible experience working with this team."</p>
 </section>
 
 <footer>
-
 <p>© 2026 Britton Dev Studio</p>
-
-<div class="socials">
-<a href="#"><svg viewBox="0 0 24 24"><path d="M7 2C4 2 2 4 2 7v10c0 3 2 5 5 5h10c3 0 5-2 5-5V7c0-3-2-5-5-5z"/></svg></a>
-<a href="#"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.9v-7"/></svg></a>
-</div>
-
 </footer>
 
 <!-- MODAL -->
-<div class="modal" id="modal">
-<div class="modal-content">
-<h3>Get a Quote</h3>
-<input id="name" placeholder="Name">
-<input id="email" placeholder="Email">
-<textarea id="details" placeholder="Project"></textarea>
-<button class="btn" onclick="sendEmail()">Send</button>
-</div>
-</div>
-
 <script>
-
-/* MODAL */
 function openModal(){
-document.getElementById("modal").style.display="flex";
+window.location.href="mailto:brittondev@icloud.com";
 }
-
-function sendEmail(){
-let name=document.getElementById("name").value;
-let details=document.getElementById("details").value;
-
-window.location.href=`mailto:brittondev@icloud.com?subject=Quote from ${name}&body=${details}`;
-}
-
-/* SCROLL ANIMATION */
-function reveal(){
-document.querySelectorAll(".reveal").forEach(el=>{
-if(el.getBoundingClientRect().top < window.innerHeight-100){
-el.classList.add("active");
-}
-});
-}
-window.addEventListener("scroll",reveal);
-
 </script>
 
 </body>
