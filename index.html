@@ -389,20 +389,24 @@ function sendMail(){
 
   alert("trying to send..."); // 👈 this is important
 
-  emailjs.send("service_ej9r7w1","template_sfcac1a",{
+emailjs.send(
+  "service_ej9r7w1",
+  "template_sfcac1a",
+  {
     name:document.getElementById('name').value,
     email:document.getElementById('email').value,
-    service:service,
+    service:document.getElementById('service').value,
     message:document.getElementById('message').value
-  })
-  .then(function(){
-    alert("Request sent!");
-  })
-  .catch(function(error){
-    alert("FAILED");
-    console.log(error);
-  });
-}
+  },
+  "LsrM-MXCNTHn_sROE" // 👈 ADD THIS
+)
+.then(function(){
+  alert("✅ Sent!");
+})
+.catch(function(error){
+  alert("❌ FAILED");
+  console.log(error);
+});
 
   
 </script>
