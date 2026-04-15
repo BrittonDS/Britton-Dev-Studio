@@ -6,313 +6,279 @@
 <title>Britton Dev Studio</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
-
-html {
-    scroll-behavior: smooth;
-}
+* {margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
 
 body {
     background: #020617;
     color: white;
+    overflow-x: hidden;
+}
+
+/* CURSOR GLOW */
+.cursor {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(59,130,246,0.25), transparent);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 0;
 }
 
 /* NAV */
 nav {
-    position: sticky;
-    top: 0;
-    backdrop-filter: blur(10px);
-    background: rgba(2,6,23,0.7);
+    position: fixed;
+    width: 100%;
+    padding: 20px 10%;
     display: flex;
     justify-content: space-between;
-    padding: 20px 10%;
-    z-index: 100;
-}
-
-nav h1 {
-    font-size: 20px;
+    backdrop-filter: blur(10px);
+    background: rgba(2,6,23,0.7);
+    z-index: 1000;
 }
 
 nav button {
     background: linear-gradient(135deg,#3b82f6,#22c55e);
-    border: none;
-    padding: 10px 18px;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-nav button:hover {
-    transform: scale(1.05);
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    color:white;
+    cursor:pointer;
 }
 
 /* HERO */
 .hero {
-    text-align: center;
-    padding: 120px 20px;
-    position: relative;
+    height: 100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
 }
 
-.hero::before {
-    content: "";
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(59,130,246,0.3), transparent);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    filter: blur(100px);
-}
-
-.hero img {
-    width: 120px;
-    margin-bottom: 20px;
-    animation: float 4s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%,100% { transform: translateY(0);}
-    50% { transform: translateY(-10px);}
-}
-
-.hero h2 {
-    font-size: 48px;
-    margin-bottom: 10px;
-}
-
-.hero p {
-    color: #94a3b8;
-    margin-bottom: 30px;
+.gradient-text {
+    font-size: 60px;
+    background: linear-gradient(90deg,#3b82f6,#22c55e);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
 .cta-btn {
-    padding: 14px 28px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
+    margin-top:20px;
+    padding:15px 30px;
+    border:none;
+    border-radius:10px;
     background: linear-gradient(135deg,#3b82f6,#22c55e);
-    color: white;
-    font-size: 16px;
-    transition: 0.3s;
-}
-
-.cta-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(59,130,246,0.6);
+    cursor:pointer;
 }
 
 /* SECTIONS */
-.section {
-    padding: 100px 10%;
-}
+.section {padding:120px 10%;}
 
-.section h3 {
-    font-size: 32px;
-    margin-bottom: 40px;
-}
-
-/* SERVICES */
-.services {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-    gap: 20px;
+/* GRID */
+.grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
 }
 
 .card {
-    background: #0f172a;
-    padding: 25px;
-    border-radius: 16px;
-    transition: 0.4s;
-    border: 1px solid rgba(255,255,255,0.05);
+    background:rgba(255,255,255,0.05);
+    padding:25px;
+    border-radius:15px;
+    transition:0.4s;
 }
 
-.card:hover {
-    transform: translateY(-10px) scale(1.02);
-    border-color: #3b82f6;
+.card:hover {transform:translateY(-10px);}
+
+/* PROJECTS */
+.project {
+    height:200px;
+    border-radius:15px;
+    background-size:cover;
+    position:relative;
+    overflow:hidden;
 }
 
-/* ABOUT */
-.about {
-    max-width: 700px;
-    line-height: 1.6;
-    color: #cbd5f5;
+.project::after {
+    content:"View Project";
+    position:absolute;
+    bottom:-40px;
+    left:20px;
+    transition:0.3s;
+}
+
+.project:hover::after {bottom:20px;}
+
+/* TESTIMONIALS */
+.testimonial {
+    text-align:center;
+    max-width:600px;
+    margin:auto;
+}
+
+/* PRICING */
+.pricing {
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.price-card {
+    flex:1;
+    background:#0f172a;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
 }
 
 /* FOOTER */
-footer {
-    text-align: center;
-    padding: 50px;
-    background: #020617;
-}
-
-.socials a {
-    margin: 0 15px;
-    color: #38bdf8;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.socials a:hover {
-    color: white;
-}
+footer {text-align:center;padding:50px;}
 
 /* MODAL */
 .modal {
-    display: none;
-    position: fixed;
-    background: rgba(0,0,0,0.7);
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
+    display:none;
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    justify-content:center;
+    align-items:center;
 }
 
 .modal-content {
-    background: #0f172a;
-    padding: 30px;
-    border-radius: 16px;
-    width: 90%;
-    max-width: 400px;
-    animation: fadeIn 0.4s ease;
-}
-
-@keyframes fadeIn {
-    from {opacity:0; transform: scale(0.9);}
-    to {opacity:1; transform: scale(1);}
+    background:#0f172a;
+    padding:30px;
+    border-radius:15px;
+    width:90%;
+    max-width:400px;
 }
 
 .modal input, .modal textarea {
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
+    width:100%;
+    margin-bottom:10px;
+    padding:10px;
 }
 
-.close {
-    float: right;
-    cursor: pointer;
-}
-
-/* SCROLL ANIMATION */
-.reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: 1s;
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* ANIMATION */
+.reveal {opacity:0;transform:translateY(40px);transition:1s;}
+.reveal.active {opacity:1;transform:translateY(0);}
 </style>
 </head>
 
 <body>
 
+<div class="cursor" id="cursor"></div>
+
 <nav>
-    <h1>Britton Dev Studio</h1>
-    <button onclick="openModal()">Get a Quote</button>
+<h1>Britton Dev Studio</h1>
+<button onclick="openModal()">Get a Quote</button>
 </nav>
 
 <section class="hero">
-    <img src="logo.png">
-    <h2>Modern Websites Built to Perform</h2>
-    <p>I design and develop fast, responsive, and beautiful websites.</p>
-    <button class="cta-btn" onclick="openModal()">Get a Quote</button>
+<h1 class="gradient-text">Elite Web Development</h1>
+<p>We build premium websites that convert and scale.</p>
+<button class="cta-btn" onclick="openModal()">Start Project</button>
 </section>
 
 <section class="section reveal">
-    <h3>Services</h3>
-    <div class="services">
-        <div class="card">
-            <h4>Web Development</h4>
-            <p>High-performance custom websites tailored to your brand.</p>
-        </div>
-        <div class="card">
-            <h4>UI/UX Design</h4>
-            <p>Clean, intuitive, and modern user experiences.</p>
-        </div>
-        <div class="card">
-            <h4>SEO Optimization</h4>
-            <p>Get found on Google and grow your online presence.</p>
-        </div>
-    </div>
+<h2>Services</h2>
+<div class="grid">
+<div class="card">Web Development</div>
+<div class="card">UI/UX Design</div>
+<div class="card">SEO</div>
+<div class="card">Branding</div>
+</div>
 </section>
 
 <section class="section reveal">
-    <h3>About</h3>
-    <p class="about">
-        Britton Dev Studio focuses on building modern, high-performing websites that elevate brands.
-        Every project is designed with precision, speed, and user experience in mind.
-    </p>
+<h2>Portfolio</h2>
+<div class="grid">
+<div class="project" style="background-image:url('https://picsum.photos/500/300?1')"></div>
+<div class="project" style="background-image:url('https://picsum.photos/500/300?2')"></div>
+<div class="project" style="background-image:url('https://picsum.photos/500/300?3')"></div>
+</div>
+</section>
+
+<section class="section reveal testimonial">
+<h2>Testimonials</h2>
+<p id="testimonialText">"Amazing service, highly recommend."</p>
+</section>
+
+<section class="section reveal">
+<h2>Pricing</h2>
+<div class="pricing">
+<div class="price-card">
+<h3>Starter</h3>
+<p>$500</p>
+</div>
+<div class="price-card">
+<h3>Pro</h3>
+<p>$1500</p>
+</div>
+<div class="price-card">
+<h3>Enterprise</h3>
+<p>$5000+</p>
+</div>
+</div>
 </section>
 
 <footer>
-    <p>© 2026 Britton Dev Studio</p>
-    <div class="socials">
-        <a href="#">Instagram</a>
-        <a href="#">Facebook</a>
-    </div>
+<p>© 2026 Britton Dev Studio</p>
+<div>
+<a href="#">Instagram</a>
+<a href="#">Facebook</a>
+</div>
 </footer>
 
 <div class="modal" id="quoteModal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">✖</span>
-        <h3>Get a Quote</h3>
-        <input type="text" id="name" placeholder="Your Name">
-        <input type="email" id="email" placeholder="Your Email">
-        <textarea id="details" placeholder="Project Details"></textarea>
-        <button class="cta-btn" onclick="sendEmail()">Send Request</button>
-    </div>
+<div class="modal-content">
+<h3>Get a Quote</h3>
+<input id="name" placeholder="Name">
+<input id="email" placeholder="Email">
+<textarea id="details" placeholder="Details"></textarea>
+<button onclick="sendEmail()">Send</button>
+</div>
 </div>
 
 <script>
-function openModal() {
-    document.getElementById("quoteModal").style.display = "flex";
+/* CURSOR */
+document.addEventListener("mousemove", e=>{
+    document.getElementById("cursor").style.left=e.clientX+"px";
+    document.getElementById("cursor").style.top=e.clientY+"px";
+});
+
+/* MODAL */
+function openModal(){document.getElementById("quoteModal").style.display="flex";}
+
+/* EMAIL */
+function sendEmail(){
+    let name=document.getElementById("name").value;
+    let details=document.getElementById("details").value;
+    window.location.href=`mailto:brittondev@icloud.com?subject=Quote from ${name}&body=${details}`;
 }
 
-function closeModal() {
-    document.getElementById("quoteModal").style.display = "none";
+/* SCROLL */
+function reveal(){
+document.querySelectorAll(".reveal").forEach(el=>{
+if(el.getBoundingClientRect().top < window.innerHeight-100){
+el.classList.add("active");
 }
-
-function sendEmail() {
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let details = document.getElementById("details").value;
-
-    let subject = encodeURIComponent("Quote Request from " + name);
-    let body = encodeURIComponent(
-        "Name: " + name + "\\nEmail: " + email + "\\n\\nDetails:\\n" + details
-    );
-
-    window.location.href = `mailto:brittondev@icloud.com?subject=${subject}&body=${body}`;
+});
 }
-
-/* SCROLL ANIMATION */
-function reveal() {
-    let reveals = document.querySelectorAll(".reveal");
-
-    reveals.forEach(el => {
-        let windowHeight = window.innerHeight;
-        let elementTop = el.getBoundingClientRect().top;
-
-        if (elementTop < windowHeight - 100) {
-            el.classList.add("active");
-        }
-    });
-}
-
 window.addEventListener("scroll", reveal);
+
+/* TESTIMONIAL ROTATION */
+const testimonials=[
+"Absolutely transformed our business.",
+"Professional and fast delivery.",
+"Best developer I've worked with."
+];
+let i=0;
+setInterval(()=>{
+i=(i+1)%testimonials.length;
+document.getElementById("testimonialText").innerText=testimonials[i];
+},3000);
 </script>
 
 </body>
