@@ -211,32 +211,35 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 /* STATS */
 .about-card.stats{
   display:grid;
-  grid-template-columns:repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap:20px;
-  text-align:center;
   align-items:center;
+  justify-items:center;
+  text-align:center;
+  height:100%;
 }
 
 .stat{
+  min-width:0; /* 🔥 CRITICAL FIX (prevents overflow) */
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  padding:10px;
 }
 
 .stat h4{
-  font-size:2.2rem;
+  font-size:1.8rem;
   font-weight:700;
   color:#a78bfa;
   font-family:'Space Grotesk';
-  margin-bottom:5px;
+  white-space:nowrap; /* prevents breaking weirdly */
 }
 
 .stat p{
-  font-size:0.85rem;
+  font-size:0.8rem;
   color:#cbd5f5;
   opacity:0.8;
+  margin-top:4px;
 }
 
 /* subtle glow animation */
