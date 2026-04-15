@@ -342,7 +342,7 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 <option value="Premium">Premium</option>
 </select>
 <textarea id="message" placeholder="Project details"></textarea>
-  <button type="submit">Send Request</button>
+<button type="button" onclick="sendMail()">Send Request</button>
 </form>
 </div>
 </div>
@@ -391,10 +391,6 @@ message:document.getElementById('message').value
 }).then(()=>alert('Request sent!'));
 }
   
-document.getElementById("quoteForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  sendMail();
-});
   
 </script>
 
