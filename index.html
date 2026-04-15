@@ -391,11 +391,9 @@ message:document.getElementById('message').value
 }).then(()=>alert('Request sent!'));
 }
   
-window.addEventListener("load", function(){
-  document.getElementById("quoteForm").addEventListener("submit", function(e){
-  e.preventDefault(); 
+document.getElementById("quoteForm").addEventListener("submit", function(e){
+  e.preventDefault();
   sendMail();
-});
 });
   
 </script>
