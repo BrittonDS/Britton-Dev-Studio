@@ -396,15 +396,21 @@ emailjs.send("service_ej9r7w1","template_5yqlj6g",{
     service:document.getElementById('service').value,
     message:document.getElementById('message').value
   })
-  .then(function(response){
-    console.log("SUCCESS", response);
-    alert("Sent!");
-  })
-  .catch(function(error){
-    console.log("ERROR", error);
-    alert("Failed");
-  });
-}
+.then(function(){
+  document.getElementById("quoteForm").reset();
+  document.getElementById("modal").style.display = "none";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+})
+
+  // ✅ Reset form
+  document.getElementById("quoteForm").reset();
+
+  // ✅ Close modal
+  document.getElementById("modal").style.display = "none";
+
+  // ✅ Scroll to top (home)
+  window.scrollTo({ top: 0, behavior: "smooth" });
+})
   
 </script>
 
