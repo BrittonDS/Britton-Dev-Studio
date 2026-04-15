@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -14,10 +14,7 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Outfit',sans-serif;background:#020617;color:#fff;html, body {
-  overflow-x: hidden;
-  max-width: 100%;
-}
+body{font-family:'Outfit',sans-serif;background:#020617;color:#fff;overflow-x:hidden}
 
 nav{display:flex;justify-content:space-between;padding:20px 8%;position:fixed;width:100%;z-index:100;background:rgba(2,6,23,0.6);backdrop-filter:blur(20px)}
 nav h1{font-family:'Space Grotesk';font-weight:700;background:linear-gradient(90deg,#a78bfa,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -145,6 +142,8 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
   <div class="highlight-list">
 
     <div class="highlight-item">
+      <h4>Full Stack</h4>
+      <p>Modern, scalable web applications built end-to-end.</p>
       <h4>offer all styles</h4>
       <p>Modern,vintage,colourful ect.</p>
     </div>
@@ -171,7 +170,7 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 
   </div>
 </section>
-  
+
 
 
 <style>
@@ -196,8 +195,8 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 .about-card::before{
   content:"";
   position:absolute;
-  width:140%;
-  height:140%;
+  width:200%;
+  height:200%;
   top:-50%;
   left:-50%;
   background:radial-gradient(circle,rgba(139,92,246,0.15),transparent);
@@ -397,7 +396,7 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
   margin-left: 6px;
   font-weight: 500;
 }
-  
+
 </style>
 
 <!-- MODAL -->
@@ -405,7 +404,7 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 <div class="modal-content">
 <h3>Request a Quote</h3>
 <form id="quoteForm">
-  
+
 <input id="name" placeholder="Name" required>
 <input id="email" placeholder="Email" required>
 <select id="service" required>
@@ -432,7 +431,7 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 <script>
 
 
-  
+
 AOS.init();
 
 new Typed("#typed",{
@@ -478,7 +477,7 @@ emailjs.send("service_nrhf2es", "template_a286cll", {
     console.log(error);
   });
 }
-  
+
 </script>
 
 </body>
