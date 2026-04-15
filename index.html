@@ -157,6 +157,8 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 
   </div>
 </section>
+  
+
 
 <style>
 .about-wrap{
@@ -326,6 +328,29 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 .process-step:hover::after{
   opacity:1;
 }
+
+@media (max-width: 768px){
+
+  .hero::before,
+  .hero::after{
+    width: 300px;
+    height: 300px;
+    filter: blur(100px);
+  }
+
+  .hero::before{
+    top: -50px;
+    left: -50px;
+  }
+
+  .hero::after{
+    bottom: -50px;
+    right: -50px;
+  }
+
+}
+
+  
 </style>
 
 <!-- MODAL -->
