@@ -342,7 +342,7 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 <option value="Premium">Premium</option>
 </select>
 <textarea id="message" placeholder="Project details"></textarea>
-<button type="button" onclick="sendMail()">Send Request</button>
+<button type="button" onclick="testClick()">Send Request</button>
 </form>
 </div>
 </div>
@@ -389,6 +389,10 @@ email:document.getElementById('email').value,
 service:service,
 message:document.getElementById('message').value
 }).then(()=>alert('Request sent!'));
+}
+
+  function testClick(){
+  alert("button works");
 }
   
   
