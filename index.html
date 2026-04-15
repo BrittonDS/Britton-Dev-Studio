@@ -6,7 +6,7 @@
 
 <title>Britton Dev Studio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@400;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 
 <style>
 
@@ -16,30 +16,17 @@ body{
     font-family:'Inter',sans-serif;
     background:#0b0b0b;
     color:white;
-    overflow-x:hidden;
-}
-
-/* CURSOR */
-.cursor{
-    width:14px;
-    height:14px;
-    background:white;
-    border-radius:50%;
-    position:fixed;
-    pointer-events:none;
-    z-index:999;
-    transition:transform 0.15s ease;
 }
 
 /* NAV */
 nav{
     position:fixed;
     width:100%;
-    padding:25px 8%;
+    padding:20px 8%;
     display:flex;
     justify-content:space-between;
-    background:rgba(10,10,10,0.6);
-    backdrop-filter:blur(12px);
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(10px);
     z-index:1000;
 }
 
@@ -50,8 +37,8 @@ nav h1{
 
 /* BUTTON */
 .btn{
-    padding:14px 28px;
-    border-radius:40px;
+    padding:12px 26px;
+    border-radius:30px;
     border:1px solid white;
     background:transparent;
     color:white;
@@ -66,79 +53,67 @@ nav h1{
 
 /* HERO */
 .hero{
-    height:100vh;
-    display:flex;
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
     align-items:center;
-    justify-content:space-between;
-    padding:0 10%;
+    padding:150px 10%;
+    gap:60px;
 }
 
 .hero h1{
-    font-size:70px;
+    font-size:72px;
     font-family:'Space Grotesk';
 }
 
 .hero p{
     margin:20px 0;
     color:#aaa;
-    max-width:500px;
 }
 
-/* OFFSET SECTION */
-.offset{
-    margin-top:-100px;
-    background:#111;
-    padding:100px 10%;
-    border-radius:40px 40px 0 0;
+/* SECTIONS */
+.section{
+    padding:120px 10%;
 }
 
 /* GRID */
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:30px;
 }
 
+/* CARD */
 .card{
     padding:30px;
-    border:1px solid rgba(255,255,255,0.1);
     border-radius:20px;
-    transition:0.3s;
-}
-
-.card:hover{
-    transform:translateY(-8px);
+    background:#111;
+    border:1px solid rgba(255,255,255,0.08);
 }
 
 /* SPLIT */
 .split{
-    display:flex;
-    align-items:center;
+    display:grid;
+    grid-template-columns:1fr 1fr;
     gap:60px;
-    padding:120px 10%;
+    align-items:center;
 }
 
-.split img{
-    width:100%;
+/* PRICING */
+.pricing{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.price{
+    padding:40px;
     border-radius:20px;
+    background:#111;
+    text-align:center;
 }
 
-/* PROJECT */
-.project{
-    height:300px;
-    border-radius:20px;
-    overflow:hidden;
-}
-
-.project img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:0.4s;
-}
-
-.project:hover img{
-    transform:scale(1.1);
+.price h2{
+    font-size:40px;
 }
 
 /* MODAL */
@@ -177,63 +152,116 @@ footer{
 
 <body>
 
-<div class="cursor" id="cursor"></div>
-
 <nav>
 <h1>Britton Dev Studio</h1>
 <button class="btn" onclick="openModal()">Get Quote</button>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
 <div>
-<h1>We build digital products that feel expensive.</h1>
-<p>Modern, high-end websites designed to convert and perform.</p>
+<h1>Premium websites engineered to convert.</h1>
+<p>
+We design and build high-end digital experiences that position your brand at the top.
+</p>
 <button class="btn" onclick="openModal()">Start Project</button>
 </div>
 
-<img src="https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg" style="width:350px;border-radius:20px;">
+<img src="https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg" style="width:100%;border-radius:20px;">
 </section>
 
-<section class="offset">
-<h2>What we do</h2>
-
+<!-- SERVICES -->
+<section class="section">
+<h2>What We Do</h2>
 <div class="grid">
 
 <div class="card">
-<h3>Custom Development</h3>
-<p>Fully custom coded websites tailored to your business.</p>
+<h3>Development</h3>
+<p>Custom coded websites built for speed and scale.</p>
 </div>
 
 <div class="card">
-<h3>UI/UX Design</h3>
-<p>Clean, modern interfaces that users love.</p>
+<h3>Design</h3>
+<p>Modern UI/UX tailored for engagement.</p>
 </div>
 
 <div class="card">
-<h3>SEO & Performance</h3>
-<p>Fast load speeds and search optimisation.</p>
+<h3>SEO</h3>
+<p>Optimised to rank and perform.</p>
 </div>
 
 </div>
 </section>
 
-<section class="split">
+<!-- EXPERIENCE -->
+<section class="section">
+<div class="split">
+
 <div>
-<h2>Built for results</h2>
-<p>We don’t just design — we build for conversion, performance and growth.</p>
-<button class="btn" onclick="openModal()">Work With Us</button>
+<h2>Experience & Approach</h2>
+<p>
+We combine strategy, design, and engineering into one seamless process.
+</p>
 </div>
 
 <img src="https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg">
+
+</div>
 </section>
 
-<section style="padding:120px 10%;">
-<h2>Selected Work</h2>
+<!-- PROCESS -->
+<section class="section">
+<h2>How It Works</h2>
 
 <div class="grid">
-<div class="project"><img src="https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg"></div>
-<div class="project"><img src="https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg"></div>
-<div class="project"><img src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg"></div>
+
+<div class="card">
+<h3>01 Strategy</h3>
+<p>Understanding your goals and audience.</p>
+</div>
+
+<div class="card">
+<h3>02 Design</h3>
+<p>Creating high-end visual concepts.</p>
+</div>
+
+<div class="card">
+<h3>03 Build</h3>
+<p>Developing fast, scalable systems.</p>
+</div>
+
+<div class="card">
+<h3>04 Launch</h3>
+<p>Deploying and optimising performance.</p>
+</div>
+
+</div>
+</section>
+
+<!-- PRICING -->
+<section class="section">
+<h2>Pricing</h2>
+
+<div class="pricing">
+
+<div class="price">
+<h3>Starter</h3>
+<h2>£500</h2>
+<p>Simple websites</p>
+</div>
+
+<div class="price">
+<h3>Professional</h3>
+<h2>£1500</h2>
+<p>Business websites</p>
+</div>
+
+<div class="price">
+<h3>Enterprise</h3>
+<h2>£5000+</h2>
+<p>Advanced builds</p>
+</div>
+
 </div>
 </section>
 
@@ -245,34 +273,24 @@ footer{
 <div class="modal" id="modal">
 <div class="modal-content">
 <h3>Get a Quote</h3>
-<input placeholder="Name">
-<input placeholder="Email">
-<textarea placeholder="Project details"></textarea>
-<button class="btn">Send</button>
+<input id="name" placeholder="Name">
+<input id="email" placeholder="Email">
+<textarea id="details" placeholder="Project"></textarea>
+<button class="btn" onclick="sendEmail()">Send</button>
 </div>
 </div>
 
 <script>
 
-/* CURSOR (smooth) */
-const cursor=document.getElementById("cursor");
-let mouseX=0, mouseY=0;
-
-document.addEventListener("mousemove",e=>{
-mouseX=e.clientX;
-mouseY=e.clientY;
-});
-
-function animate(){
-cursor.style.left=mouseX+"px";
-cursor.style.top=mouseY+"px";
-requestAnimationFrame(animate);
-}
-animate();
-
-/* MODAL */
 function openModal(){
 document.getElementById("modal").style.display="flex";
+}
+
+function sendEmail(){
+let name=document.getElementById("name").value;
+let details=document.getElementById("details").value;
+
+window.location.href=`mailto:brittondev@icloud.com?subject=Quote from ${name}&body=${details}`;
 }
 
 </script>
