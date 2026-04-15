@@ -66,7 +66,10 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 <body>
 
 <nav>
-<h1>Britton Dev Studio</h1>
+<h1 class="logo">
+  <span class="brand">Britton</span>
+  <span class="sub">Dev Studio</span>
+</h1>
 <button onclick="scrollToPricing()">Get Quote</button>
 </nav>
 
@@ -348,6 +351,25 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
     right: -50px;
   }
 
+}
+
+
+  .logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.logo .brand {
+  background: linear-gradient(90deg,#a78bfa,#6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo .sub {
+  color: #ffffff;
+  margin-left: 6px;
+  font-weight: 600;
 }
 
   
