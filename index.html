@@ -383,26 +383,23 @@ if(e.target.id==='modal')document.getElementById('modal').style.display='none';
 
   emailjs.init("LsrM-MXCNTHn_sROE");
 
-function sendMail(){
-  alert("Sending...");
 
-  emailjs.send(
-    "service_ej9r7w1",
-    "template_sfcac1a",
-    {
-      name:document.getElementById('name').value,
-      email:document.getElementById('email').value,
-      service:document.getElementById('service').value,
-      message:document.getElementById('message').value
-    },
-    "LsrM-MXCNTHn_sROE" // 👈 KEY GOES HERE ONLY
-  )
-  .then(function(){
-    alert("✅ Sent!");
+function sendMail(){
+  console.log("clicked");
+
+  emailjs.send("service_barx4g6","template_sfcac1a",{
+    name:document.getElementById('name').value,
+    email:document.getElementById('email').value,
+    service:document.getElementById('service').value,
+    message:document.getElementById('message').value
+  })
+  .then(function(response){
+    console.log("SUCCESS", response);
+    alert("Sent!");
   })
   .catch(function(error){
-    alert("❌ FAILED");
-    console.log(error);
+    console.log("ERROR", error);
+    alert("Failed");
   });
 }
   
