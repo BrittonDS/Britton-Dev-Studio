@@ -6,145 +6,169 @@
 
 <title>Britton Dev Studio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@400;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 
 *{margin:0;padding:0;box-sizing:border-box;}
-
-body{
-    font-family:'Inter',sans-serif;
-    background:#0b0b0b;
-    color:white;
-}
+body{font-family:'Inter',sans-serif;background:#0e1a2b;color:white;overflow-x:hidden;}
 
 /* NAV */
 nav{
-    position:fixed;
-    width:100%;
-    padding:20px 8%;
-    display:flex;
-    justify-content:space-between;
-    background:rgba(0,0,0,0.6);
-    backdrop-filter:blur(10px);
-    z-index:1000;
+display:flex;
+justify-content:space-between;
+padding:20px 8%;
+position:fixed;
+width:100%;
+z-index:1000;
+background:rgba(10,20,40,0.7);
+backdrop-filter:blur(10px);
 }
 
-nav h1{
-    font-family:'Space Grotesk';
-    font-weight:700;
-}
-
-/* BUTTON */
 .btn{
-    padding:12px 26px;
-    border-radius:30px;
-    border:1px solid white;
-    background:transparent;
-    color:white;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.btn:hover{
-    background:white;
-    color:black;
+background:linear-gradient(135deg,#6c63ff,#4facfe);
+border:none;
+padding:12px 24px;
+border-radius:30px;
+color:white;
+cursor:pointer;
 }
 
 /* HERO */
 .hero{
-    display:grid;
-    grid-template-columns:1.2fr 1fr;
-    align-items:center;
-    padding:150px 10%;
-    gap:60px;
+height:100vh;
+display:flex;
+align-items:center;
+padding:0 10%;
+background:linear-gradient(135deg,#0e1a2b,#1c2f5a);
+}
+
+.hero-content{
+max-width:600px;
 }
 
 .hero h1{
-    font-size:72px;
-    font-family:'Space Grotesk';
+font-size:60px;
+line-height:1.1;
 }
 
 .hero p{
-    margin:20px 0;
-    color:#aaa;
+margin:20px 0;
+color:#cbd5e1;
 }
 
-/* SECTIONS */
-.section{
-    padding:120px 10%;
+/* PANEL */
+.panel{
+background:#162544;
+border-radius:20px;
+padding:30px;
+margin-top:-80px;
+width:80%;
+margin-left:auto;
+margin-right:auto;
+display:flex;
+justify-content:space-between;
 }
 
-/* GRID */
+/* SERVICES GRID */
+.services{
+padding:120px 10%;
+background:#111f3d;
+}
+
 .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:30px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
 }
 
-/* CARD */
 .card{
-    padding:30px;
-    border-radius:20px;
-    background:#111;
-    border:1px solid rgba(255,255,255,0.08);
+background:#1c2f5a;
+padding:30px;
+border-radius:20px;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 10px 40px rgba(0,0,0,0.4);
+}
+
+/* GRADIENT SECTION */
+.gradient{
+background:linear-gradient(135deg,#6c63ff,#4facfe);
+padding:120px 10%;
+text-align:center;
 }
 
 /* SPLIT */
 .split{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:60px;
-    align-items:center;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:60px;
+padding:120px 10%;
+background:#f4f4f4;
+color:#111;
 }
 
-/* PRICING */
-.pricing{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
-}
-
-.price{
-    padding:40px;
-    border-radius:20px;
-    background:#111;
-    text-align:center;
-}
-
-.price h2{
-    font-size:40px;
-}
-
-/* MODAL */
-.modal{
-    display:none;
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.8);
-    justify-content:center;
-    align-items:center;
-}
-
-.modal-content{
-    background:#111;
-    padding:30px;
-    border-radius:20px;
-    width:90%;
-    max-width:400px;
-}
-
-.modal input, .modal textarea{
-    width:100%;
-    margin-bottom:10px;
-    padding:10px;
+/* TESTIMONIAL */
+.testimonial{
+padding:120px 10%;
+background:#fff;
+color:#111;
+text-align:center;
 }
 
 /* FOOTER */
 footer{
-    padding:80px;
-    text-align:center;
+padding:80px;
+text-align:center;
+background:#0e1a2b;
+}
+
+.socials svg{
+width:24px;
+fill:white;
+margin:0 10px;
+cursor:pointer;
+}
+
+/* MODAL */
+.modal{
+display:none;
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+justify-content:center;
+align-items:center;
+}
+
+.modal-content{
+background:white;
+color:black;
+padding:30px;
+border-radius:20px;
+width:90%;
+max-width:400px;
+}
+
+.modal input, .modal textarea{
+width:100%;
+margin-bottom:10px;
+padding:10px;
+}
+
+/* ANIMATION */
+.reveal{
+opacity:0;
+transform:translateY(60px);
+transition:1s;
+}
+
+.reveal.active{
+opacity:1;
+transform:translateY(0);
 }
 
 </style>
@@ -153,120 +177,91 @@ footer{
 <body>
 
 <nav>
-<h1>Britton Dev Studio</h1>
+<h2>Britton Dev Studio</h2>
 <button class="btn" onclick="openModal()">Get Quote</button>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-<div>
-<h1>Premium websites engineered to convert.</h1>
-<p>
-We design and build high-end digital experiences that position your brand at the top.
-</p>
+<div class="hero-content">
+<h1>Digital Products That Drive Real Growth</h1>
+<p>We design and develop modern websites that help businesses scale, convert, and stand out.</p>
 <button class="btn" onclick="openModal()">Start Project</button>
 </div>
-
-<img src="https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg" style="width:100%;border-radius:20px;">
 </section>
+
+<!-- PANEL -->
+<div class="panel reveal">
+<div>
+<h3>Mobile Development</h3>
+<p>High performance apps</p>
+</div>
+<div>
+<h3>Web Design</h3>
+<p>Modern UI systems</p>
+</div>
+<div>
+<h3>SEO Growth</h3>
+<p>Rank and convert</p>
+</div>
+</div>
 
 <!-- SERVICES -->
-<section class="section">
-<h2>What We Do</h2>
+<section class="services reveal">
+<h2>Services We Excel At</h2>
+
 <div class="grid">
 
 <div class="card">
-<h3>Development</h3>
-<p>Custom coded websites built for speed and scale.</p>
+<h3>Web Development</h3>
+<p>Custom high-performance builds.</p>
 </div>
 
 <div class="card">
-<h3>Design</h3>
-<p>Modern UI/UX tailored for engagement.</p>
+<h3>UI/UX Design</h3>
+<p>Modern user-focused interfaces.</p>
 </div>
 
 <div class="card">
-<h3>SEO</h3>
-<p>Optimised to rank and perform.</p>
+<h3>SEO Optimization</h3>
+<p>Rank higher and grow traffic.</p>
 </div>
 
 </div>
 </section>
 
-<!-- EXPERIENCE -->
-<section class="section">
-<div class="split">
+<!-- GRADIENT -->
+<section class="gradient reveal">
+<h2>Trusted By Growing Brands</h2>
+<p>We build digital experiences that businesses rely on.</p>
+<button class="btn">View Work</button>
+</section>
+
+<!-- SPLIT -->
+<section class="split reveal">
+<img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg">
 
 <div>
-<h2>Experience & Approach</h2>
-<p>
-We combine strategy, design, and engineering into one seamless process.
-</p>
-</div>
-
-<img src="https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg">
-
+<h2>Built for modern businesses</h2>
+<p>We combine design, development and strategy into one seamless process.</p>
 </div>
 </section>
 
-<!-- PROCESS -->
-<section class="section">
-<h2>How It Works</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>01 Strategy</h3>
-<p>Understanding your goals and audience.</p>
-</div>
-
-<div class="card">
-<h3>02 Design</h3>
-<p>Creating high-end visual concepts.</p>
-</div>
-
-<div class="card">
-<h3>03 Build</h3>
-<p>Developing fast, scalable systems.</p>
-</div>
-
-<div class="card">
-<h3>04 Launch</h3>
-<p>Deploying and optimising performance.</p>
-</div>
-
-</div>
-</section>
-
-<!-- PRICING -->
-<section class="section">
-<h2>Pricing</h2>
-
-<div class="pricing">
-
-<div class="price">
-<h3>Starter</h3>
-<h2>£500</h2>
-<p>Simple websites</p>
-</div>
-
-<div class="price">
-<h3>Professional</h3>
-<h2>£1500</h2>
-<p>Business websites</p>
-</div>
-
-<div class="price">
-<h3>Enterprise</h3>
-<h2>£5000+</h2>
-<p>Advanced builds</p>
-</div>
-
-</div>
+<!-- TESTIMONIAL -->
+<section class="testimonial reveal">
+<h2>What Clients Say</h2>
+<p>"Absolutely incredible work — highly recommend."</p>
 </section>
 
 <footer>
+
 <p>© 2026 Britton Dev Studio</p>
+
+<div class="socials">
+<a href="#"><svg viewBox="0 0 24 24"><path d="M7 2C4 2 2 4 2 7v10c0 3 2 5 5 5h10c3 0 5-2 5-5V7c0-3-2-5-5-5z"/></svg></a>
+<a href="#"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.9v-7"/></svg></a>
+</div>
+
 </footer>
 
 <!-- MODAL -->
@@ -282,6 +277,7 @@ We combine strategy, design, and engineering into one seamless process.
 
 <script>
 
+/* MODAL */
 function openModal(){
 document.getElementById("modal").style.display="flex";
 }
@@ -292,6 +288,16 @@ let details=document.getElementById("details").value;
 
 window.location.href=`mailto:brittondev@icloud.com?subject=Quote from ${name}&body=${details}`;
 }
+
+/* SCROLL ANIMATION */
+function reveal(){
+document.querySelectorAll(".reveal").forEach(el=>{
+if(el.getBoundingClientRect().top < window.innerHeight-100){
+el.classList.add("active");
+}
+});
+}
+window.addEventListener("scroll",reveal);
 
 </script>
 
