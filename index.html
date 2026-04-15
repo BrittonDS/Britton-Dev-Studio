@@ -13,101 +13,154 @@
     font-family: 'Segoe UI', sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    background: #0f172a;
-    color: #fff;
+    background: #020617;
+    color: white;
 }
 
 /* NAV */
 nav {
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(10px);
+    background: rgba(2,6,23,0.7);
     display: flex;
     justify-content: space-between;
     padding: 20px 10%;
-    align-items: center;
+    z-index: 100;
 }
 
 nav h1 {
-    font-size: 22px;
+    font-size: 20px;
 }
 
 nav button {
-    background: linear-gradient(135deg, #3b82f6, #22c55e);
+    background: linear-gradient(135deg,#3b82f6,#22c55e);
     border: none;
     padding: 10px 18px;
     border-radius: 8px;
     color: white;
     cursor: pointer;
+    transition: 0.3s;
+}
+
+nav button:hover {
+    transform: scale(1.05);
 }
 
 /* HERO */
 .hero {
     text-align: center;
-    padding: 100px 20px;
+    padding: 120px 20px;
+    position: relative;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(59,130,246,0.3), transparent);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(100px);
 }
 
 .hero img {
-    width: 140px;
+    width: 120px;
     margin-bottom: 20px;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0);}
+    50% { transform: translateY(-10px);}
 }
 
 .hero h2 {
-    font-size: 42px;
+    font-size: 48px;
     margin-bottom: 10px;
 }
 
 .hero p {
-    color: #cbd5f5;
+    color: #94a3b8;
     margin-bottom: 30px;
 }
 
 .cta-btn {
-    padding: 14px 26px;
+    padding: 14px 28px;
     border-radius: 10px;
     border: none;
     cursor: pointer;
-    background: linear-gradient(135deg, #3b82f6, #22c55e);
+    background: linear-gradient(135deg,#3b82f6,#22c55e);
     color: white;
     font-size: 16px;
+    transition: 0.3s;
+}
+
+.cta-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(59,130,246,0.6);
 }
 
 /* SECTIONS */
 .section {
-    padding: 80px 10%;
+    padding: 100px 10%;
 }
 
 .section h3 {
-    font-size: 28px;
-    margin-bottom: 20px;
+    font-size: 32px;
+    margin-bottom: 40px;
 }
 
+/* SERVICES */
 .services {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
     gap: 20px;
 }
 
 .card {
-    background: #1e293b;
-    padding: 20px;
-    border-radius: 12px;
-    transition: 0.3s;
+    background: #0f172a;
+    padding: 25px;
+    border-radius: 16px;
+    transition: 0.4s;
+    border: 1px solid rgba(255,255,255,0.05);
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px) scale(1.02);
+    border-color: #3b82f6;
+}
+
+/* ABOUT */
+.about {
+    max-width: 700px;
+    line-height: 1.6;
+    color: #cbd5f5;
 }
 
 /* FOOTER */
 footer {
     text-align: center;
-    padding: 40px;
+    padding: 50px;
     background: #020617;
 }
 
 .socials a {
-    margin: 0 10px;
+    margin: 0 15px;
     color: #38bdf8;
     text-decoration: none;
+    transition: 0.3s;
+}
+
+.socials a:hover {
+    color: white;
 }
 
 /* MODAL */
@@ -124,15 +177,20 @@ footer {
 }
 
 .modal-content {
-    background: #1e293b;
+    background: #0f172a;
     padding: 30px;
-    border-radius: 12px;
+    border-radius: 16px;
     width: 90%;
     max-width: 400px;
+    animation: fadeIn 0.4s ease;
 }
 
-.modal-content input,
-.modal-content textarea {
+@keyframes fadeIn {
+    from {opacity:0; transform: scale(0.9);}
+    to {opacity:1; transform: scale(1);}
+}
+
+.modal input, .modal textarea {
     width: 100%;
     margin-bottom: 15px;
     padding: 10px;
@@ -144,51 +202,61 @@ footer {
     float: right;
     cursor: pointer;
 }
+
+/* SCROLL ANIMATION */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 1s;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
 <nav>
     <h1>Britton Dev Studio</h1>
     <button onclick="openModal()">Get a Quote</button>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-    <img src="logo.png" alt="Logo">
+    <img src="logo.png">
     <h2>Modern Websites Built to Perform</h2>
     <p>I design and develop fast, responsive, and beautiful websites.</p>
     <button class="cta-btn" onclick="openModal()">Get a Quote</button>
 </section>
 
-<!-- SERVICES -->
-<section class="section">
+<section class="section reveal">
     <h3>Services</h3>
     <div class="services">
         <div class="card">
             <h4>Web Development</h4>
-            <p>Custom websites built for performance and scalability.</p>
+            <p>High-performance custom websites tailored to your brand.</p>
         </div>
         <div class="card">
             <h4>UI/UX Design</h4>
-            <p>Clean, modern and user-focused designs.</p>
+            <p>Clean, intuitive, and modern user experiences.</p>
         </div>
         <div class="card">
             <h4>SEO Optimization</h4>
-            <p>Helping your website rank and get discovered.</p>
+            <p>Get found on Google and grow your online presence.</p>
         </div>
     </div>
 </section>
 
-<!-- ABOUT -->
-<section class="section">
+<section class="section reveal">
     <h3>About</h3>
-    <p>I’m Britton, a developer focused on building sleek, modern websites for businesses and individuals. I care about clean design, speed, and user experience.</p>
+    <p class="about">
+        Britton Dev Studio focuses on building modern, high-performing websites that elevate brands.
+        Every project is designed with precision, speed, and user experience in mind.
+    </p>
 </section>
 
-<!-- FOOTER -->
 <footer>
     <p>© 2026 Britton Dev Studio</p>
     <div class="socials">
@@ -197,7 +265,6 @@ footer {
     </div>
 </footer>
 
-<!-- MODAL -->
 <div class="modal" id="quoteModal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">✖</span>
@@ -223,15 +290,29 @@ function sendEmail() {
     let email = document.getElementById("email").value;
     let details = document.getElementById("details").value;
 
-    let subject = encodeURIComponent("Website Quote Request from " + name);
+    let subject = encodeURIComponent("Quote Request from " + name);
     let body = encodeURIComponent(
-        "Name: " + name + "\n" +
-        "Email: " + email + "\n\n" +
-        "Project Details:\n" + details
+        "Name: " + name + "\\nEmail: " + email + "\\n\\nDetails:\\n" + details
     );
 
     window.location.href = `mailto:brittondev@icloud.com?subject=${subject}&body=${body}`;
 }
+
+/* SCROLL ANIMATION */
+function reveal() {
+    let reveals = document.querySelectorAll(".reveal");
+
+    reveals.forEach(el => {
+        let windowHeight = window.innerHeight;
+        let elementTop = el.getBoundingClientRect().top;
+
+        if (elementTop < windowHeight - 100) {
+            el.classList.add("active");
+        }
+    });
+}
+
+window.addEventListener("scroll", reveal);
 </script>
 
 </body>
