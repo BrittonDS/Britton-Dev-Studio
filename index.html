@@ -122,7 +122,6 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 </div>
 </section>
 
-<!-- ABOUT US (HIGH-END) -->
 <section id="about">
   <h2 data-aos="fade-up">About Us</h2>
   <div class="about-wrap">
@@ -220,7 +219,7 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 }
 
 
-  /* NEW MIDDLE CARD */
+
 .about-card.highlight{
   display:flex;
   flex-direction:column;
@@ -247,7 +246,7 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 }
 
 
-/* subtle glow animation */
+
 .about-card.main{
   animation:glowPulse 4s infinite alternate;
 }
@@ -258,7 +257,7 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 }
 </style>
 
-<!-- PROCESS SECTION -->
+
 <section id="process">
   <h2 data-aos="fade-up">Our Process</h2>
   <div class="process-wrap">
@@ -377,19 +376,18 @@ footer{padding:60px 8%;text-align:center;background:#020617;border-top:1px solid
 
 
 .logo {
-  font-family: 'Outfit', sans-serif; /* cleaner + more modern */
+  font-family: 'Outfit', sans-serif; 
   font-weight: 600;
   letter-spacing: 0.5px;
 }
 
-/* Britton (gradient) */
+
 .logo .brand {
   background: linear-gradient(90deg,#a78bfa,#6366f1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Dev Studio (white like "We build") */
 .logo .sub {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
@@ -468,7 +466,7 @@ emailjs.send("service_nrhf2es", "template_a286cll", {
   .then(function(){
     alert("Request sent!");
 
-    // ✅ ONLY inside here
+    
     document.getElementById("quoteForm").reset();
     document.getElementById("modal").style.display = "none";
     window.scrollTo({ top: 0, behavior: "smooth" });
