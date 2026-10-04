@@ -4,9 +4,11 @@
 <meta name="google-site-verification" content="2U-sQjHSnxavGGDxKAStmiV3tWiA1dvnjgjyZziq0t0" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Britton Dev Studio | Websites &amp; Web Apps</title>
-<meta name="description" content="Britton Dev Studio designs and builds fast, beautiful websites and full-stack web apps. Packages from £89.">
+<title>Layer | Websites &amp; Web Apps</title>
+<meta name="description" content="Layer designs and builds fast, beautiful websites and full-stack web apps. Packages from £89.">
 <meta name="theme-color" content="#000000">
+<link rel="icon" href="layerlogo.png" type="image/png">
+<link rel="apple-touch-icon" href="layerlogo.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,6 +78,10 @@ section{padding:clamp(84px,11vw,140px) 0;position:relative}
 .ld-in{text-align:center;transition:transform 1s var(--ease),opacity .6s}
 .loader.done .ld-in{transform:translateY(-60px);opacity:0}
 .ld-ring{width:96px;height:96px;margin:0 auto 30px;border-radius:50%;background:conic-gradient(from 0deg,#2997ff,#fff 30%,#2997ff 55%,#0a3a73 80%,#2997ff);-webkit-mask:radial-gradient(circle,transparent 40px,#000 41px);mask:radial-gradient(circle,transparent 40px,#000 41px);animation:spin 1.4s linear infinite;box-shadow:0 0 60px rgba(41,151,255,.5)}
+.ld-mark{position:relative;width:96px;height:96px;margin:0 auto 30px}
+.ld-mark .ld-ring{position:absolute;inset:0;margin:0}
+.ld-logo{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;object-fit:contain;animation:ldPulse 1.6s ease-in-out infinite}
+@keyframes ldPulse{50%{transform:scale(1.12);opacity:.8}}
 .ld-num{font-size:4.5rem;font-weight:700;letter-spacing:-.06em;font-variant-numeric:tabular-nums;line-height:1}
 .ld-name{margin-top:14px;color:var(--gray);font-size:.82rem;letter-spacing:.3em;text-transform:uppercase}
 .ld-bar{width:200px;height:2px;background:rgba(255,255,255,.12);margin:26px auto 0;border-radius:2px;overflow:hidden}
@@ -137,7 +143,11 @@ nav.scrolled::after{opacity:1}
 .logo:hover .logo-mark{transform:scale(1.15);animation-duration:1.4s}
 .logo-mark::before{content:"";position:absolute;inset:2px;border-radius:50%;background:#0c0c0e}
 .logo-mark::after{content:"";position:absolute;inset:10px;border-radius:50%;background:var(--blue-d);box-shadow:0 0 12px var(--blue-d)}
-.logo .sub-name{color:var(--gray-d);font-weight:400}
+.logo-img{display:block;height:34px;width:auto;max-width:170px;object-fit:contain;transition:transform .6s var(--ease),filter .5s}
+.logo:hover .logo-img{transform:scale(1.07);filter:drop-shadow(0 0 14px rgba(41,151,255,.55))}
+.logo-fallback{display:none;align-items:center;gap:12px}
+.logo.nologo .logo-fallback{display:flex}
+.logo-word{font-size:1.12rem;font-weight:700;letter-spacing:-.03em}
 .links{position:relative;display:flex;gap:2px;padding:4px;border-radius:980px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.06)}
 .links a{position:relative;z-index:1;padding:9px 17px;border-radius:980px;font-size:.84rem;font-weight:500;color:rgba(255,255,255,.62);transition:color .3s;letter-spacing:.005em}
 .links a:hover,.links a.active{color:#fff}
@@ -591,7 +601,8 @@ footer{background:#000;border-top:1px solid var(--line-d);padding:50px 0 40px;co
   nav .btn.sm{padding:10px 14px;font-size:.78rem;flex:none}
   .logo{gap:9px}.logo-mark{width:26px;height:26px}.logo-mark::after{inset:8px}
   nav .btn.sm::after{display:none}
-  .logo{font-size:.86rem}
+  .logo-img{height:30px;max-width:130px}
+  .logo-word{font-size:1.02rem}
   .tab{font-size:1.2rem;gap:12px}
   .card{padding:36px 26px}
   .price{font-size:3.4rem}
@@ -641,9 +652,9 @@ footer{background:#000;border-top:1px solid var(--line-d);padding:50px 0 40px;co
 
 <div class="loader" id="loader" aria-hidden="true">
   <div class="ld-in">
-    <div class="ld-ring"></div>
+    <div class="ld-mark"><div class="ld-ring"></div><img class="ld-logo" src="layerlogo.png" alt="" onerror="this.remove()"></div>
     <div class="ld-num" id="ldNum">0</div>
-    <div class="ld-name">Britton Dev Studio</div>
+    <div class="ld-name">Layer</div>
     <div class="ld-bar"><i id="ldBar"></i></div>
   </div>
 </div>
@@ -655,7 +666,7 @@ footer{background:#000;border-top:1px solid var(--line-d);padding:50px 0 40px;co
 
 <nav id="nav">
   <div class="nav-in">
-    <a href="#top" class="logo"><span class="logo-mark"></span><span>Britton <span class="sub-name">Dev Studio</span></span></a>
+    <a href="#top" class="logo" aria-label="Layer, back to top"><img class="logo-img" src="layerlogo.png" alt="Layer" onerror="this.parentNode.classList.add('nologo');this.remove()"><span class="logo-fallback"><span class="logo-mark"></span><span class="logo-word">Layer</span></span></a>
     <div class="links" id="links">
       <span class="ind" id="ind"></span>
       <a href="#pricing">Services</a>
@@ -729,7 +740,7 @@ footer{background:#000;border-top:1px solid var(--line-d);padding:50px 0 40px;co
 <!-- STATEMENT -->
 <section class="statement dark">
   <div class="wrap">
-    <p id="statement">Britton Dev Studio is a forward-thinking digital agency. We combine modern design, cutting-edge technology and strategic thinking to deliver products that not only look exceptional, but perform at the highest level.</p>
+    <p id="statement">Layer is a forward-thinking digital agency. We combine modern design, cutting-edge technology and strategic thinking to deliver products that not only look exceptional, but perform at the highest level.</p>
   </div>
 </section>
 
@@ -924,7 +935,7 @@ footer{background:#000;border-top:1px solid var(--line-d);padding:50px 0 40px;co
     <div class="about-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px;margin-top:80px">
       <div class="rv" style="background:#fff;border-radius:30px;padding:46px 40px">
         <h3 style="font-size:1.8rem;margin-bottom:18px">Who We Are</h3>
-        <p style="color:#6e6e73;margin-bottom:14px;font-size:1.05rem">Britton Dev Studio is a forward-thinking digital agency focused on building high-performance web experiences and scalable software systems.</p>
+        <p style="color:#6e6e73;margin-bottom:14px;font-size:1.05rem">Layer is a forward-thinking digital agency focused on building high-performance web experiences and scalable software systems.</p>
         <p style="color:#6e6e73;font-size:1.05rem">Our team specializes in full-stack development, UI/UX design, and advanced integrations, helping businesses transform ideas into powerful digital solutions.</p>
       </div>
       <div class="rv d1" style="background:#000;color:#fff;border-radius:30px;padding:46px 40px">
@@ -1086,7 +1097,7 @@ footer{background:#000;border-top:1px solid var(--line-d);padding:50px 0 40px;co
 
       <aside class="b-side">
         <div class="ticket" id="ticket">
-          <div class="tk-head"><span>Your project</span><span id="tkId">#BDS-0000</span></div>
+          <div class="tk-head"><span>Your project</span><span id="tkId">#LYR-0000</span></div>
           <ul class="tk-lines">
             <li><span>Package</span><b id="rcPkg">Not chosen yet</b></li>
             <li><span>Style</span><b id="rcStyle">Modern</b></li>
@@ -1110,13 +1121,13 @@ footer{background:#000;border-top:1px solid var(--line-d);padding:50px 0 40px;co
 <footer>
   <div class="wrap">
     <div class="foot">
-      <div><h3>Britton Dev Studio</h3><p>We build powerful digital experiences.</p></div>
+      <div><h3>Layer</h3><p>We build powerful digital experiences.</p></div>
       <div class="socials">
         <a href="https://www.facebook.com/profile.php?id=61572051603728" target="_blank" rel="noopener">Facebook</a>
         <a href="https://www.instagram.com/brittondevstudio/" target="_blank" rel="noopener">Instagram</a>
       </div>
     </div>
-    <div class="copy">© <span id="yr"></span> Britton Dev Studio. All rights reserved.</div>
+    <div class="copy">© <span id="yr"></span> Layer. All rights reserved.</div>
   </div>
 </footer>
 
@@ -1557,15 +1568,15 @@ const buzz = hp;
 if(HAPTIC_OK && (matchMedia('(pointer:coarse)').matches || IS_IOS)) document.body.classList.add('touchy');
 
 try{
-  if(localStorage.getItem('bds_sound') === '0') soundOn = false;
-  if(localStorage.getItem('bds_haptics') === '0') hapticOn = false;
+  if(localStorage.getItem('layer_sound') === '0') soundOn = false;
+  if(localStorage.getItem('layer_haptics') === '0') hapticOn = false;
 }catch(e){}
 function paintPrefs(){
   const s = $('#snd'), h = $('#hap');
   s.classList.toggle('off', !soundOn); s.setAttribute('aria-pressed', String(soundOn)); $('#sndLbl').textContent = soundOn ? 'Sound on' : 'Sound off';
   h.classList.toggle('off', !hapticOn); h.setAttribute('aria-pressed', String(hapticOn)); $('#hapLbl').textContent = hapticOn ? 'Haptics on' : 'Haptics off';
 }
-function savePrefs(){ try{ localStorage.setItem('bds_sound', soundOn ? '1' : '0'); localStorage.setItem('bds_haptics', hapticOn ? '1' : '0'); }catch(e){} }
+function savePrefs(){ try{ localStorage.setItem('layer_sound', soundOn ? '1' : '0'); localStorage.setItem('layer_haptics', hapticOn ? '1' : '0'); }catch(e){} }
 $('#snd').addEventListener('click', () => { soundOn = !soundOn; paintPrefs(); savePrefs(); if(soundOn) sfx.tick(); });
 $('#hap').addEventListener('click', () => { hapticOn = !hapticOn; paintPrefs(); savePrefs(); if(hapticOn) hp('select'); });
 paintPrefs();
@@ -1597,7 +1608,7 @@ const TSAY = {asap:'Let\'s move fast then.', month:'A steady pace. Perfect.', fl
 const S = {pkg:null, style:'modern', styleTouched:false, extras:new Set(), time:null, step:1, max:1};
 const builder = $('#builder'), panes = $$('.pane'), sts = $$('.st');
 const EMAIL_RE = /^\S+@\S+\.\S+$/;
-$('#tkId').textContent = '#BDS-' + Math.floor(1000 + Math.random() * 9000);
+$('#tkId').textContent = '#LYR-' + Math.floor(1000 + Math.random() * 9000);
 
 let typeTok = 0;
 function say(el, text){
