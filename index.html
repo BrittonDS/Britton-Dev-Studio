@@ -29,6 +29,7 @@
   --line-l:rgba(0,0,0,.09);
   --blue:#0071e3;
   --blue-d:#2997ff;
+  --logo-bg:#0a0a0a;
   --ease:cubic-bezier(.16,.84,.24,1);
   --spring:cubic-bezier(.3,1.6,.5,1);
 }
@@ -77,14 +78,11 @@ section{padding:clamp(84px,11vw,140px) 0;position:relative}
 .loader.done{clip-path:inset(0 0 100% 0);pointer-events:none}
 .ld-in{text-align:center;transition:transform 1s var(--ease),opacity .6s}
 .loader.done .ld-in{transform:translateY(-60px);opacity:0}
-.ld-ring{width:96px;height:96px;margin:0 auto 30px;border-radius:50%;background:conic-gradient(from 0deg,#2997ff,#fff 30%,#2997ff 55%,#0a3a73 80%,#2997ff);-webkit-mask:radial-gradient(circle,transparent 40px,#000 41px);mask:radial-gradient(circle,transparent 40px,#000 41px);animation:spin 1.4s linear infinite;box-shadow:0 0 60px rgba(41,151,255,.5)}
-.ld-mark{position:relative;width:96px;height:96px;margin:0 auto 30px}
-.ld-mark .ld-ring{position:absolute;inset:0;margin:0}
-.ld-logo{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;object-fit:contain;animation:ldPulse 1.6s ease-in-out infinite}
-@keyframes ldPulse{50%{transform:scale(1.12);opacity:.8}}
-.ld-num{font-size:4.5rem;font-weight:700;letter-spacing:-.06em;font-variant-numeric:tabular-nums;line-height:1}
-.ld-name{margin-top:14px;color:var(--gray);font-size:.82rem;letter-spacing:.3em;text-transform:uppercase}
-.ld-bar{width:200px;height:2px;background:rgba(255,255,255,.12);margin:26px auto 0;border-radius:2px;overflow:hidden}
+.ld-word{display:flex;justify-content:center;font-size:clamp(3.6rem,17vw,8rem);font-weight:800;letter-spacing:.16em;margin-right:-.16em;line-height:1;text-transform:uppercase}
+.ld-word span{display:inline-block;opacity:0;transform:translateY(45%);filter:blur(12px);animation:chIn 1s var(--ease) forwards;animation-delay:calc(var(--i)*110ms + .1s)}
+.ld-num{margin-top:34px;font-size:.95rem;font-weight:600;letter-spacing:.24em;color:var(--gray);font-variant-numeric:tabular-nums}
+.ld-num::after{content:"%"}
+.ld-bar{width:min(240px,60vw);height:2px;background:rgba(255,255,255,.12);margin:16px auto 0;border-radius:2px;overflow:hidden}
 .ld-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2997ff,#fff)}
 @keyframes spin{to{transform:rotate(360deg)}}
 
@@ -128,14 +126,14 @@ section{padding:clamp(84px,11vw,140px) 0;position:relative}
 
 /* nav */
 nav{position:fixed;top:14px;left:50%;width:min(1120px,calc(100% - 28px));height:64px;z-index:200;border-radius:980px;
-  background:rgba(20,20,23,.55);backdrop-filter:saturate(190%) blur(28px);-webkit-backdrop-filter:saturate(190%) blur(28px);
+  background:var(--logo-bg);
   border:1px solid rgba(255,255,255,.1);box-shadow:0 14px 50px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.1);
   transform:translate(-50%,-160%);
   transition:width .8s var(--ease),background .5s,top .6s var(--ease),box-shadow .6s}
 .ready nav{animation:navIn 1.4s var(--ease) .15s forwards}
 @keyframes navIn{to{transform:translate(-50%,0)}}
 nav::after{content:"";position:absolute;left:14%;right:14%;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(41,151,255,.95),transparent);opacity:0;transition:opacity .6s}
-nav.scrolled{width:min(900px,calc(100% - 28px));top:10px;background:rgba(10,10,12,.82);box-shadow:0 20px 60px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.12)}
+nav.scrolled{width:min(900px,calc(100% - 28px));top:10px;background:var(--logo-bg);box-shadow:0 20px 60px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.12)}
 nav.scrolled::after{opacity:1}
 .nav-in{height:100%;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 10px 0 22px}
 .logo{display:flex;align-items:center;gap:12px;font-weight:600;font-size:.98rem;letter-spacing:-.02em;white-space:nowrap}
@@ -143,8 +141,8 @@ nav.scrolled::after{opacity:1}
 .logo:hover .logo-mark{transform:scale(1.15);animation-duration:1.4s}
 .logo-mark::before{content:"";position:absolute;inset:2px;border-radius:50%;background:#0c0c0e}
 .logo-mark::after{content:"";position:absolute;inset:10px;border-radius:50%;background:var(--blue-d);box-shadow:0 0 12px var(--blue-d)}
-.logo-img{display:block;height:34px;width:auto;max-width:170px;object-fit:contain;transition:transform .6s var(--ease),filter .5s}
-.logo:hover .logo-img{transform:scale(1.07);filter:drop-shadow(0 0 14px rgba(41,151,255,.55))}
+.logo-img{display:block;height:54px;width:auto;max-width:190px;margin-left:-8px;object-fit:contain;background:var(--logo-bg);transition:transform .6s var(--ease),filter .5s}
+.logo:hover .logo-img{transform:scale(1.05)}
 .logo-fallback{display:none;align-items:center;gap:12px}
 .logo.nologo .logo-fallback{display:flex}
 .logo-word{font-size:1.12rem;font-weight:700;letter-spacing:-.03em}
@@ -561,7 +559,7 @@ footer{background:#000;border-top:1px solid var(--line-d);padding:50px 0 40px;co
 /* responsive */
 @media(max-width:1060px){
   .nav-in{padding:0 8px 0 18px;gap:10px}
-  .links{position:absolute;top:calc(100% + 10px);left:0;right:0;flex-direction:column;gap:0;border-radius:28px;background:rgba(12,12,14,.97);border:1px solid var(--line-d);padding:10px 22px 18px;box-shadow:0 30px 80px rgba(0,0,0,.6);opacity:0;visibility:hidden;transform:translateY(-14px) scale(.98);transition:opacity .45s,transform .6s var(--ease),visibility .45s}
+  .links{position:absolute;top:calc(100% + 10px);left:0;right:0;flex-direction:column;gap:0;border-radius:28px;background:var(--logo-bg);border:1px solid var(--line-d);padding:10px 22px 18px;box-shadow:0 30px 80px rgba(0,0,0,.6);opacity:0;visibility:hidden;transform:translateY(-14px) scale(.98);transition:opacity .45s,transform .6s var(--ease),visibility .45s}
   .links.open{opacity:1;visibility:visible;transform:none}
   .links a{font-size:1.25rem;padding:16px 0;border-radius:0;border-bottom:1px solid var(--line-d);color:#fff}
   .links a:last-of-type{border-bottom:none}
@@ -601,7 +599,7 @@ footer{background:#000;border-top:1px solid var(--line-d);padding:50px 0 40px;co
   nav .btn.sm{padding:10px 14px;font-size:.78rem;flex:none}
   .logo{gap:9px}.logo-mark{width:26px;height:26px}.logo-mark::after{inset:8px}
   nav .btn.sm::after{display:none}
-  .logo-img{height:30px;max-width:130px}
+  .logo-img{height:46px;max-width:160px;margin-left:-6px}
   .logo-word{font-size:1.02rem}
   .tab{font-size:1.2rem;gap:12px}
   .card{padding:36px 26px}
@@ -652,9 +650,8 @@ footer{background:#000;border-top:1px solid var(--line-d);padding:50px 0 40px;co
 
 <div class="loader" id="loader" aria-hidden="true">
   <div class="ld-in">
-    <div class="ld-mark"><div class="ld-ring"></div><img class="ld-logo" src="layerlogo2.png" alt="" onerror="this.remove()"></div>
+    <div class="ld-word" aria-label="Layer"><span style="--i:0">L</span><span style="--i:1">a</span><span style="--i:2">y</span><span style="--i:3">e</span><span style="--i:4">r</span></div>
     <div class="ld-num" id="ldNum">0</div>
-    <div class="ld-name">Layer</div>
     <div class="ld-bar"><i id="ldBar"></i></div>
   </div>
 </div>
