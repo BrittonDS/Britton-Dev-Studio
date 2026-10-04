@@ -393,6 +393,15 @@ details[open] summary::after{transform:rotate(135deg)}
 .snd{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:980px;border:1px solid var(--line-d);background:rgba(255,255,255,.05);color:var(--gray-d);font-size:.78rem;cursor:pointer;transition:.3s;white-space:nowrap}
 .snd:hover{color:#fff;background:rgba(255,255,255,.1)}
 .snd svg{width:16px;height:16px}
+.snd-grp{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+#hap{display:none}
+.touchy #hap{display:inline-flex}
+.snd.off{opacity:.75}
+.tk-bar.pulse i{animation:barPulse .9s var(--ease)}
+@keyframes barPulse{35%{filter:brightness(1.9);box-shadow:0 0 34px #7cc4ff}}
+.ticket.mile{animation:mile .8s var(--ease)}
+@keyframes mile{35%{transform:scale(1.025);box-shadow:0 0 0 1px rgba(41,151,255,.65),0 50px 110px rgba(41,151,255,.4),inset 0 1px 0 rgba(255,255,255,.14)}}
+.btn.send.ready{animation:glow 1.5s ease-in-out infinite}
 .snd .slash{opacity:0;transition:opacity .3s}
 .snd.off .slash{opacity:1}
 .snd.off .waves{opacity:.2}
@@ -604,7 +613,7 @@ footer{background:#000;border-top:1px solid var(--line-d);padding:50px 0 40px;co
   .stat-grid{grid-template-columns:1fr 1fr;gap:44px 0}.stat{padding:0 16px;border-left:1px solid var(--line-d)}.stat:nth-child(odd){border-left:none;padding-left:0}.stat b{font-size:clamp(2.3rem,11vw,3.2rem)}.stat span{font-size:.88rem}
   .b-main{padding:24px 18px;min-height:0}
   .b-top{flex-direction:column-reverse;align-items:stretch}
-  .snd{align-self:flex-end}
+  .snd-grp{align-self:flex-end}
   .st span{display:none}
   .opts,.tiles{grid-template-columns:1fr}
   .opt{grid-template-columns:auto 1fr;padding:18px 18px 18px 16px}
@@ -963,10 +972,16 @@ footer{background:#000;border-top:1px solid var(--line-d);padding:50px 0 40px;co
             <button class="st" type="button" data-go="3"><b>3</b><span>Details</span></button>
             <button class="st" type="button" data-go="4"><b>4</b><span>Send</span></button>
           </div>
-          <button class="snd" id="snd" type="button" aria-pressed="true" aria-label="Toggle sound effects">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><g class="waves"><path d="M16.5 8.5a5 5 0 010 7"/><path d="M19 6a8.5 8.5 0 010 12"/></g><path class="slash" d="M3 3l18 18"/></svg>
-            <span id="sndLbl">Sound on</span>
-          </button>
+          <div class="snd-grp">
+            <button class="snd" id="snd" type="button" aria-pressed="true" aria-label="Toggle sound effects">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><g class="waves"><path d="M16.5 8.5a5 5 0 010 7"/><path d="M19 6a8.5 8.5 0 010 12"/></g><path class="slash" d="M3 3l18 18"/></svg>
+              <span id="sndLbl">Sound on</span>
+            </button>
+            <button class="snd" id="hap" type="button" aria-pressed="true" aria-label="Toggle haptic vibration feedback" title="Feel taps through vibration, even when your phone is on silent">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="3" width="8" height="18" rx="2"/><g class="waves"><path d="M4.5 8v8"/><path d="M19.5 8v8"/><path d="M1.8 10v4"/><path d="M22.2 10v4"/></g><path class="slash" d="M3 3l18 18"/></svg>
+              <span id="hapLbl">Haptics on</span>
+            </button>
+          </div>
         </div>
 
         <!-- step 1 -->
@@ -1467,7 +1482,7 @@ function celebrate(){
   }, d));
 }
 
-/* ================= sound ================= */
+/* ================= sound + haptics ================= */
 let AC = null, soundOn = true;
 function actx(){ try{ if(!AC) AC = new (window.AudioContext || window.webkitAudioContext)(); if(AC.state === 'suspended') AC.resume(); return AC; }catch(e){ return null; } }
 function tone(f, d = .12, type = 'sine', vol = .05, when = 0){
@@ -1477,20 +1492,93 @@ function tone(f, d = .12, type = 'sine', vol = .05, when = 0){
   g.gain.exponentialRampToValueAtTime(vol, t + .012); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
   o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + d + .02);
 }
+function whoosh(){
+  if(!soundOn) return; const a = actx(); if(!a) return;
+  const len = Math.floor(a.sampleRate * .35), buf = a.createBuffer(1, len, a.sampleRate), d = buf.getChannelData(0);
+  for(let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.sin(Math.PI * i / len);
+  const src = a.createBufferSource(); src.buffer = buf;
+  const f = a.createBiquadFilter(); f.type = 'bandpass'; f.Q.value = 1.1;
+  f.frequency.setValueAtTime(380, a.currentTime); f.frequency.exponentialRampToValueAtTime(2800, a.currentTime + .3);
+  const g = a.createGain(); g.gain.value = .045;
+  src.connect(f); f.connect(g); g.connect(a.destination); src.start();
+}
 const sfx = {
   tick:   () => tone(760, .09, 'triangle', .05),
   select: () => { tone(523, .14, 'sine', .06); tone(784, .18, 'sine', .05, .06); },
-  next:   () => { tone(440, .1, 'triangle', .04); tone(660, .14, 'triangle', .04, .05); },
+  next:   () => { whoosh(); tone(440, .1, 'triangle', .04); tone(660, .14, 'triangle', .04, .05); },
   err:    () => { tone(180, .18, 'sawtooth', .035); tone(140, .22, 'sawtooth', .035, .09); },
+  roll:   k => tone(560 + k * 95, .05, 'triangle', .022),
+  mile:   m => { const b = m === 100 ? 784 : 520 + m * 3; tone(b, .22, 'sine', .06); tone(b * 1.5, .3, 'sine', .05, .08); if(m === 100) tone(b * 2, .45, 'sine', .05, .18); },
+  build:  () => [0,1,2,3,4,5].forEach(i => tone(380 + i * 75, .09, 'triangle', .03, i * .1)),
   ok:     () => [523, 659, 784, 1047, 1319].forEach((f,i) => tone(f, .35, 'sine', .06, i * .09))
 };
-const buzz = p => { try{ navigator.vibrate && navigator.vibrate(p); }catch(e){} };
-$('#snd').addEventListener('click', () => {
-  soundOn = !soundOn; const b = $('#snd');
-  b.classList.toggle('off', !soundOn); b.setAttribute('aria-pressed', String(soundOn));
-  $('#sndLbl').textContent = soundOn ? 'Sound on' : 'Sound off';
-  if(soundOn) sfx.tick();
-});
+
+/* Haptics: Android (Chrome/Firefox) uses the Vibration API. iPhones don't support it,
+   so on iOS 17.4+ Safari we fire the system switch haptic through a hidden toggle. */
+const IS_IOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const CAN_VIB = typeof navigator.vibrate === 'function';
+const HAPTIC_OK = CAN_VIB || IS_IOS;
+let hapticOn = HAPTIC_OK;
+const HAP = {
+  tick:      [7],
+  roll:      [5],
+  select:    [18, 28, 30],
+  next:      [10, 26, 16],
+  milestone: [14, 30, 14, 30, 36],
+  ready:     [20, 40, 20, 40, 20, 40, 80],
+  err:       [30, 36, 30, 36, 64],
+  build:     [6, 60, 8, 50, 10, 40, 12, 30, 16, 22, 22, 12],
+  ok:        [30, 50, 30, 50, 30, 50, 80, 70, 170]
+};
+let iosLabel = null;
+if(IS_IOS && !CAN_VIB){
+  iosLabel = document.createElement('label');
+  iosLabel.setAttribute('aria-hidden', 'true');
+  iosLabel.style.cssText = 'position:fixed;left:0;top:0;width:1px;height:1px;opacity:.01;overflow:hidden;pointer-events:none';
+  const sw = document.createElement('input'); sw.type = 'checkbox'; sw.setAttribute('switch', ''); sw.tabIndex = -1;
+  iosLabel.appendChild(sw); document.body.appendChild(iosLabel);
+}
+function iosPulse(pattern){
+  let t = 0, n = 0;
+  pattern.forEach((v, i) => {
+    if(i % 2 === 0 && n < 7){ n++; t ? setTimeout(() => iosLabel.click(), t) : iosLabel.click(); }
+    t += v;
+  });
+}
+function hp(name){
+  if(!hapticOn) return;
+  const pat = Array.isArray(name) ? name : (HAP[name] || [10]);
+  try{
+    if(CAN_VIB) navigator.vibrate(pat);
+    else if(iosLabel) iosPulse(pat);
+  }catch(e){}
+}
+const buzz = hp;
+if(HAPTIC_OK && (matchMedia('(pointer:coarse)').matches || IS_IOS)) document.body.classList.add('touchy');
+
+try{
+  if(localStorage.getItem('bds_sound') === '0') soundOn = false;
+  if(localStorage.getItem('bds_haptics') === '0') hapticOn = false;
+}catch(e){}
+function paintPrefs(){
+  const s = $('#snd'), h = $('#hap');
+  s.classList.toggle('off', !soundOn); s.setAttribute('aria-pressed', String(soundOn)); $('#sndLbl').textContent = soundOn ? 'Sound on' : 'Sound off';
+  h.classList.toggle('off', !hapticOn); h.setAttribute('aria-pressed', String(hapticOn)); $('#hapLbl').textContent = hapticOn ? 'Haptics on' : 'Haptics off';
+}
+function savePrefs(){ try{ localStorage.setItem('bds_sound', soundOn ? '1' : '0'); localStorage.setItem('bds_haptics', hapticOn ? '1' : '0'); }catch(e){} }
+$('#snd').addEventListener('click', () => { soundOn = !soundOn; paintPrefs(); savePrefs(); if(soundOn) sfx.tick(); });
+$('#hap').addEventListener('click', () => { hapticOn = !hapticOn; paintPrefs(); savePrefs(); if(hapticOn) hp('select'); });
+paintPrefs();
+
+let hinted = false;
+function hintOnce(){
+  if(hinted || !hapticOn || !document.body.classList.contains('touchy')) return;
+  hinted = true; setTimeout(() => toast('Haptics are on, so you\'ll feel every tap even on silent.', 'ok'), 600);
+}
+function springPop(el, from = .92){
+  if(reduce || !el || !el.animate) return;
+  el.animate([{transform:`scale(${from})`}, {transform:'scale(1.05)', offset:.55}, {transform:'scale(1)'}], {duration:640, easing:'cubic-bezier(.2,.9,.3,1)'});
+}
 
 /* ================= project builder ================= */
 const PK = {
@@ -1520,12 +1608,22 @@ function say(el, text){
 function setTxt(id, t){ const el = $('#' + id); if(el.textContent !== t){ el.textContent = t; return true; } return false; }
 function flash(id){ const li = $('#' + id).closest('li'); li.classList.remove('flash'); void li.offsetWidth; li.classList.add('flash'); }
 
+let lastPct = 0;
+function milestone(m){
+  sfx.mile(m); hp(m === 100 ? 'ready' : 'milestone');
+  const bar = $('.tk-bar'), tk = $('#ticket');
+  bar.classList.remove('pulse'); void bar.offsetWidth; bar.classList.add('pulse');
+  tk.classList.remove('mile'); void tk.offsetWidth; tk.classList.add('mile');
+  const r = bar.getBoundingClientRect(); burst(r.left + r.width * m / 100, r.top + 3, {n: m === 100 ? 30 : 14, power:.9});
+}
 let priceNow = 0, priceTarget = 0, priceRAF;
 function rollPrice(to){
   if(to === priceTarget) return; priceTarget = to; cancelAnimationFrame(priceRAF);
-  const from = priceNow, t0 = performance.now();
+  const from = priceNow, t0 = performance.now(); let lk = 0;
+  if(!reduce && $('#rcPrice').animate) $('#rcPrice').animate([{transform:'scale(1)'},{transform:'scale(1.14)',offset:.3},{transform:'scale(1)'}],{duration:620,easing:'cubic-bezier(.2,.9,.3,1)'});
   (function f(t){
     const p = clamp((t - t0) / 1000), e = 1 - Math.pow(1 - p, 4);
+    const k = Math.floor(e * 6); if(k > lk){ lk = k; sfx.roll(k); hp('roll'); }
     priceNow = Math.round(from + (to - from) * e);
     $('#rcPrice').textContent = '£' + priceNow + (to ? '+' : '');
     if(p < 1) priceRAF = requestAnimationFrame(f);
@@ -1545,6 +1643,9 @@ function renderReceipt(changed){
   ch.forEach(([id, t]) => { if(setTxt(id, t) && changed) flash(id); });
   rollPrice(pk ? pk.price : 0);
   const p = pct(); $('#tkBar').style.width = p + '%'; $('#tkPct').textContent = p + '% complete';
+  [25,50,75,100].forEach(m => { if(lastPct < m && p >= m) milestone(m); });
+  lastPct = p;
+  $('#sendBtn').classList.toggle('ready', p === 100 && S.step === 4 && !$('#sendBtn').classList.contains('loading'));
 }
 function syncButtons(){
   const p1 = $('.pane[data-step="1"] [data-next]'), p3 = $('.pane[data-step="3"] [data-next]');
@@ -1566,7 +1667,7 @@ function renderStepper(){
   sts.forEach((b,i) => { const k = i + 1; b.classList.toggle('on', k === S.step); b.classList.toggle('done', done || k < S.step); });
   $('#stLine').style.width = (done ? 100 : (S.step - 1) / 3 * 100) + '%';
 }
-function nudge(sel){ $$(sel).forEach(el => { el.classList.remove('nudge'); void el.offsetWidth; el.classList.add('nudge'); }); sfx.err(); buzz([20,30,20]); }
+function nudge(sel){ $$(sel).forEach(el => { el.classList.remove('nudge'); void el.offsetWidth; el.classList.add('nudge'); }); sfx.err(); hp('err'); }
 
 function go(n){
   n = clamp(n, 1, 4);
@@ -1581,7 +1682,7 @@ function go(n){
   builder.style.setProperty('--dx', ((n > S.step ? 1 : -1) * 40) + 'px');
   S.step = n; S.max = Math.max(S.max, n);
   panes.forEach(p => p.classList.toggle('on', +p.dataset.step === n));
-  renderStepper(); sfx.next();
+  renderStepper(); sfx.next(); hp('next');
   const r = builder.getBoundingClientRect();
   if(r.top < 70 || r.bottom > innerHeight + 200) builder.scrollIntoView({behavior:'smooth', block:'center'});
   if(n === 4) setTimeout(() => { if(S.step === 4 && !$('#name').value) $('#name').focus({preventScroll:true}); }, 700);
@@ -1592,8 +1693,8 @@ function selectPkg(val, ev){
   S.pkg = val;
   $$('.opt').forEach(o => o.classList.toggle('sel', o.dataset.pkg === val));
   updateChips(); renderReceipt('rcPkg'); syncButtons();
-  say($('#say1'), PK[val].say); sfx.select(); buzz(12);
-  const o = $(`.opt[data-pkg="${val}"]`), r = o.getBoundingClientRect();
+  say($('#say1'), PK[val].say); sfx.select(); hp('select'); hintOnce();
+  const o = $(`.opt[data-pkg="${val}"]`), r = o.getBoundingClientRect(); springPop(o, .93);
   burst(ev && ev.clientX ? ev.clientX : r.left + r.width/2, ev && ev.clientY ? ev.clientY : r.top + r.height/2, {n:26});
   clearTimeout(advT);
   if(S.step === 1) advT = setTimeout(() => { if(S.step === 1) go(2); }, 1150);
@@ -1602,18 +1703,18 @@ function setStyle(t, ev){
   S.style = t; S.styleTouched = true;
   $$('.sty').forEach(s => s.classList.toggle('on', s.dataset.t === t));
   const lm = $('.live-mock'); lm.dataset.t = t; lm.classList.remove('swap'); void lm.offsetWidth; lm.classList.add('swap');
-  renderReceipt('rcStyle'); say($('#say2'), STY[t].say); sfx.tick(); buzz(8);
+  renderReceipt('rcStyle'); say($('#say2'), STY[t].say); sfx.tick(); hp('tick'); springPop($(`.sty[data-t="${t}"]`), .92);
   if(ev) burst(ev.clientX, ev.clientY, {n:16});
 }
 function toggleChip(c, ev){
-  if(c.classList.contains('inc')){ sfx.tick(); c.classList.remove('nudge'); void c.offsetWidth; c.classList.add('nudge'); return; }
+  if(c.classList.contains('inc')){ sfx.tick(); hp('tick'); c.classList.remove('nudge'); void c.offsetWidth; c.classList.add('nudge'); return; }
   const v = c.dataset.v;
   if(S.extras.has(v)) S.extras.delete(v); else { S.extras.add(v); burst(ev.clientX, ev.clientY, {n:14}); }
-  c.classList.toggle('on', S.extras.has(v)); sfx.tick(); buzz(8); renderReceipt('rcExtra');
+  c.classList.toggle('on', S.extras.has(v)); sfx.tick(); hp('tick'); springPop(c, .88); renderReceipt('rcExtra');
 }
 function setTime(t, ev){
   S.time = t; $$('.tile').forEach(x => x.classList.toggle('on', x.dataset.time === t));
-  renderReceipt('rcTime'); syncButtons(); say($('#say3'), TSAY[t]); sfx.select(); buzz(12);
+  renderReceipt('rcTime'); syncButtons(); say($('#say3'), TSAY[t]); sfx.select(); hp('select'); springPop($(`.tile[data-time="${t}"]`), .94);
   burst(ev.clientX, ev.clientY, {n:22});
 }
 
@@ -1634,8 +1735,8 @@ function markField(id, ok, show){
   const f = $('#' + id); f.classList.toggle('valid', ok);
   if(show) { f.classList.remove('bad'); if(!ok){ void f.offsetWidth; f.classList.add('bad'); } } else if(ok) f.classList.remove('bad');
 }
-$('#name').addEventListener('input', () => { const ok = $('#name').value.trim().length > 1; const was = $('#fName').classList.contains('valid'); markField('fName', ok); if(ok && !was) sfx.tick(); renderReceipt(); });
-$('#email').addEventListener('input', () => { const ok = EMAIL_RE.test($('#email').value.trim()); const was = $('#fEmail').classList.contains('valid'); markField('fEmail', ok); if(ok && !was) sfx.tick(); renderReceipt(); });
+$('#name').addEventListener('input', () => { const ok = $('#name').value.trim().length > 1; const was = $('#fName').classList.contains('valid'); markField('fName', ok); if(ok && !was){ sfx.tick(); hp('tick'); } renderReceipt(); });
+$('#email').addEventListener('input', () => { const ok = EMAIL_RE.test($('#email').value.trim()); const was = $('#fEmail').classList.contains('valid'); markField('fEmail', ok); if(ok && !was){ sfx.tick(); hp('tick'); } renderReceipt(); });
 $('#name').addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); $('#email').focus(); } });
 $('#email').addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); $('#message').focus(); } });
 
@@ -1662,12 +1763,12 @@ function sendMail(){
   const nOk = name.length > 1, eOk = EMAIL_RE.test(email);
   markField('fName', nOk, true); markField('fEmail', eOk, true);
   if(!nOk || !eOk){
-    sfx.err(); buzz([30,40,30]); toast('Please add your name and a valid email.', 'err');
+    sfx.err(); hp('err'); toast('Please add your name and a valid email.', 'err');
     (nOk ? $('#email') : $('#name')).focus(); return;
   }
   if(!S.pkg){ toast('Pick a package first.', 'err'); go(1); return; }
   const pk = PK[S.pkg], btn = $('#sendBtn');
-  btn.classList.add('loading'); btn.disabled = true; sfx.tick();
+  btn.classList.remove('ready'); btn.classList.add('loading'); btn.disabled = true; sfx.build(); hp('build');
   const lines = [
     'Package: ' + pk.name + ' (from £' + pk.price + ')',
     'Style: ' + STY[S.style].n,
@@ -1681,7 +1782,7 @@ function sendMail(){
     .then(() => success(name, email))
     .catch(err => {
       console.log(err); btn.classList.remove('loading'); btn.disabled = false;
-      sfx.err(); buzz([40,40,40]); toast('Something went wrong. Please try again.', 'err');
+      sfx.err(); hp('err'); toast('Something went wrong. Please try again.', 'err');
     });
 }
 function success(name, email){
@@ -1691,11 +1792,12 @@ function success(name, email){
   $('#okEmail').textContent = email;
   renderStepper(); $('#ticket').classList.add('sent');
   $('#tkBar').style.width = '100%'; $('#tkPct').textContent = '100% complete';
-  sfx.ok(); buzz([40,60,40,60,120]); celebrate();
+  sfx.ok(); hp('ok'); celebrate();
   const r = builder.getBoundingClientRect();
   if(r.top < 70 || r.bottom > innerHeight + 200) builder.scrollIntoView({behavior:'smooth', block:'center'});
 }
 function restart(){
+  lastPct = 0;
   S.pkg = null; S.style = 'modern'; S.styleTouched = false; S.extras.clear(); S.time = null; S.step = 1; S.max = 1;
   $$('.opt').forEach(o => o.classList.remove('sel')); $$('.tile').forEach(t => t.classList.remove('on'));
   $$('.sty').forEach((s,i) => s.classList.toggle('on', i === 0)); $('.live-mock').dataset.t = 'modern';
