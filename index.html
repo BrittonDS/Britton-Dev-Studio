@@ -1774,14 +1774,66 @@ function toast(msg, type){
 /* EmailJS (credentials unchanged) */
 emailjs.init("LsrM-MXCNTHn_sROE");
 
+<script>
 function sendMail(){
-  const name = $('#name').value.trim(), email = $('#email').value.trim(), msg = $('#message').value.trim();
-  const nOk = name.length > 1, eOk = EMAIL_RE.test(email);
-  markField('fName', nOk, true); markField('fEmail', eOk, true);
-  if(!nOk || !eOk){
-    sfx.err(); hp('err'); toast('Please add your name and a valid email.', 'err');
-    (nOk ? $('#email') : $('#name')).focus(); return;
+  const name = document.getElementById('qName').value.trim();
+  const email = document.getElementById('qEmail').value.trim();
+  const details = document.getElementById('qDetails').value.trim();
+
+  if(!name || !email){
+    alert('Please enter your name and email.');
+    return;
   }
+
+  const quoteId = '#LYR-' + Math.floor(1000 + Math.random() * 9000);
+
+  const packageName = S.pkg?.name || 'Not selected';
+  const packagePrice = S.pkg?.price || 'Not specified';
+
+  const includes = S.pkg?.features
+    ? S.pkg.features.join(', ')
+    : 'Not specified';
+
+  const style = S.style || 'Not specified';
+  const timeline = S.timeline || 'Not specified';
+
+  const extras = S.extras && S.extras.length
+    ? S.extras.join(', ')
+    : 'None';
+
+  emailjs.send(
+    'service_nrhf2es',
+    'template_a286cll',
+    {
+      to_email: 'layerdevstudio@icloud.com',
+      reply_to: email,
+
+      subject: `New Layer Quote — ${name} — ${quoteId}`,
+
+      quote_id: quoteId,
+      customer_name: name,
+      customer_email: email,
+
+      package_name: packageName,
+      package_price: packagePrice,
+      package_includes: includes,
+
+      website_style: style,
+      extras: extras,
+      timeline: timeline,
+
+      project_details: details || 'No additional details provided.'
+    }
+  )
+  .then(function(){
+    console.log('Quote sent successfully');
+  })
+  .catch(function(error){
+    console.error('Quote failed:', error);
+    alert('There was a problem sending your quote. Please try again.');
+  });
+}
+</script>
   if(!S.pkg){ toast('Pick a package first.', 'err'); go(1); return; }
   const pk = PK[S.pkg], btn = $('#sendBtn');
   btn.classList.remove('ready'); btn.classList.add('loading'); btn.disabled = true; sfx.build(); hp('build');
